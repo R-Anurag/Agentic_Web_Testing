@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-1767875348259",
+  "runtime": {
+    "url": "https://www.youtube.com",
+    "browser": "chromium",
+    "timestamp": "2026-01-08T12:29:08.259Z"
+  },
+  "ui_state": {
+    "state_id": "e919282d-51a0-4e5a-a2b2-9d04097e1798",
+    "route": "/",
+    "title": "YouTube",
+    "available_actions": [
+      "button:skip_navigation",
+      "button:search",
+      "button:tap_to_unmute",
+      "button:search",
+      "button:infoshopping",
+      "button:cancel",
+      "button:confirm",
+      "button:watch_later",
+      "button:share",
+      "button:copy_link",
+      "button:live",
+      "button:•",
+      "button:•",
+      "link:sign_in",
+      "link:home_home",
+      "link:shorts_shorts",
+      "link:subscriptions_subscriptions",
+      "link:you_you"
+    ],
+    "entities": {}
+  }
+}

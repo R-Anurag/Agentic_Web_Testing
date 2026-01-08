@@ -1,0 +1,120 @@
+{
+  "run_id": "graph-test-001",
+
+  "ui_state": {
+    "route": "/loan/documents",
+    "available_actions": ["upload_bill", "go_next"],
+    "title": "Loan Application - Step 2",
+    "entities": {
+      "applicationId": "abc123"
+    }
+  },
+
+  "observation": {
+    "network_calls": [
+      {
+        "method": "POST",
+        "url": "/loan/basic",
+        "status": 200,
+        "response_time_ms": 280,
+        "action_id": "submit_basic_details"
+      },
+      {
+        "method": "POST",
+        "url": "/loan/documents",
+        "status": 200,
+        "response_time_ms": 340,
+        "action_id": "upload_bill"
+      }
+    ],
+
+    "console_errors": [],
+
+    "state_delta": {
+      "documents_uploaded": true
+    },
+
+    "screenshots": [
+      {
+        "type": "after_action",
+        "path": "screenshots/submit_basic_details.png",
+        "action_id": "submit_basic_details"
+      },
+      {
+        "type": "after_action",
+        "path": "screenshots/upload_bill.png",
+        "action_id": "upload_bill"
+      }
+    ]
+  },
+
+  "knowledge": {
+    "state_graph": {
+      "loan_step_1": {
+        "route": "/loan/basic-details",
+        "edges": [
+          {
+            "action_id": "submit_basic_details",
+            "to_state": "loan_step_2"
+          }
+        ]
+      },
+
+      "loan_step_2": {
+        "route": "/loan/documents",
+        "edges": [
+          {
+            "action_id": "upload_bill",
+            "to_state": "loan_review"
+          },
+          {
+            "action_id": "go_next",
+            "to_state": "loan_review"
+          }
+        ]
+      },
+
+      "loan_review": {
+        "route": "/loan/review",
+        "edges": []
+      }
+    },
+
+    "action_api_map": {
+      "submit_basic_details": [
+        {
+          "method": "POST",
+          "url": "/loan/basic"
+        }
+      ],
+      "upload_bill": [
+        {
+          "method": "POST",
+          "url": "/loan/documents"
+        }
+      ],
+      "go_next": []
+    },
+
+    "baselines": {},
+    "risk_scores": {}
+  },
+
+  "anomalies": [
+    {
+      "severity": "HIGH",
+      "category": "INVARIANT_VIOLATION",
+      "action_id": "upload_bill",
+      "description": "API succeeded but UI did not advance state",
+      "evidence": {
+        "expected": "route change to /loan/review",
+        "observed": "/loan/documents"
+      }
+    }
+  ],
+
+  "decision": {
+    "next_action": null,
+    "control": "TERMINATE"
+  }
+}

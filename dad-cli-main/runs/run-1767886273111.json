@@ -1,0 +1,1048 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-1767886273111",
+  "runtime": {
+    "url": "https://playwright.dev/",
+    "browser": "chromium",
+    "timestamp": "2026-01-08T15:31:13.111Z"
+  },
+  "steps": [
+    {
+      "step": 0,
+      "action": {
+        "action_id": "button:searchk",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "button:searchk",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/button:searchk_1767886285605.png",
+        "skipped": true
+      },
+      "anomalies": []
+    },
+    {
+      "step": 1,
+      "action": {
+        "action_id": "link:playwright",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:playwright",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:playwright_1767886289789.png",
+        "skipped": false
+      },
+      "anomalies": []
+    },
+    {
+      "step": 2,
+      "action": {
+        "action_id": "link:docs",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:docs",
+        "networkCalls": [
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/5e95c892.04a50b6b.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/aba21aa0.3de9c501.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/a7bd4aaa.2d9939bb.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/17896441.14782575.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/0058b4c6.5603ec80.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/4cf51b27.9f497a86.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/a94703ab.398abce1.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/common.18d8ecf5.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/7778.bfee0f94.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/img/playwright-logo.svg",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/images/run-tests-cli-6e7e3119a14239c9021b406d7109dc44.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/images/html-report-basic-8a88e44830660bfd1da1d17a7241f035.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/images/ui-mode-1958baf0398aef5e9c9b5c68c5d56f2d.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/5e95c892.04a50b6b.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/aba21aa0.3de9c501.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/a7bd4aaa.2d9939bb.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/0058b4c6.5603ec80.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/a94703ab.398abce1.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/17896441.14782575.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/f28a5c4c.af6e8988.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/c671c2db.4ed20edd.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/efc02652.b2fc4b3c.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/2697cf9f.4f0918b0.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/a354b52c.b6f9ecc7.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/0b6ffbee.f884aa30.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/de57f712.30a6868c.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/95a0e322.85e288a1.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/83c4d187.b3203520.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/14429742.9d997ccc.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/51b66dbc.508571f1.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/47bc1922.3620da78.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/8aa416eb.fefcf0c3.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/e111845e.a073f2a2.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/eee4a0ae.6117127b.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/9b9afcb7.50ffd0ad.js",
+            "status": 200
+          }
+        ],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:docs_1767886293997.png",
+        "skipped": false
+      },
+      "anomalies": []
+    },
+    {
+      "step": 3,
+      "action": {
+        "action_id": "button:on_this_page",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "button:on_this_page",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/button:on_this_page_1767886328342.png",
+        "skipped": true
+      },
+      "anomalies": []
+    },
+    {
+      "step": 4,
+      "action": {
+        "action_id": "link:api",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:api",
+        "networkCalls": [
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/90f396e5.675bffac.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/5e95c892.04a50b6b.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/aba21aa0.3de9c501.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/a7bd4aaa.2d9939bb.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/0058b4c6.5603ec80.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/a94703ab.398abce1.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/17896441.14782575.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/11cd46ad.5a75ff93.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/87cd08a3.afd0c69f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/1119f947.7d50c57b.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/5d3bccab.6939be1a.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/de8b4938.43b093ad.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/d1044879.e09d1d97.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/0252123d.314a3281.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/fccb4eb0.4091a329.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/25c0bc23.4c460212.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/ae3d2bbb.4103bcbf.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/276a8437.85ceb370.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/c8fcda07.382eaeea.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/628e3f43.087a846d.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/16a7dbe2.ac774ce3.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/c8934306.0c9ba6d9.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/assets/js/bf04620f.ffa6a942.js",
+            "status": 200
+          }
+        ],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:api_1767886332601.png",
+        "skipped": false
+      },
+      "anomalies": []
+    },
+    {
+      "step": 5,
+      "action": {
+        "action_id": "link:node.js",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:node.js",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:node.js_1767886336806.png",
+        "skipped": false
+      },
+      "anomalies": []
+    },
+    {
+      "step": 6,
+      "action": {
+        "action_id": "link:python",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:python",
+        "networkCalls": [
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/docs/api/class-playwright",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/js/redirection.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/css/styles.8bfacc99.css",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/playwright-logo.svg",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/runtime~main.09f31ca9.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/main.42db7c7f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/aba21aa0.c688fdbe.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/d0945e75.0004466f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/90f396e5.0b1e6291.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/a94703ab.f5435d23.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/a7bd4aaa.5cbccdc5.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/17896441.5174447f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/common.607559c3.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/7778.9e3fb9a3.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/5e95c892.85fdf69f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/5e95c892.85fdf69f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/aba21aa0.c688fdbe.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/a7bd4aaa.5cbccdc5.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/d0945e75.0004466f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/a94703ab.f5435d23.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/17896441.5174447f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/90f396e5.0b1e6291.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/bf04620f.1a1be2c1.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/4cf51b27.2d91199c.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/9b4a0573.96803267.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/628e3f43.3a3367a2.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/0252123d.ba1ad9d7.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/e53ca1cd.971ce916.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/c8fcda07.183f325c.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/ae3d2bbb.131f6c2f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/16a7dbe2.4749c484.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/11cd46ad.8da68769.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/c8934306.3e611282.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/083f60f3.9e294837.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/69792cc8.97a7b1c5.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/3ed7419e.3d1983ec.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/1119f947.c2a678d2.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/87cd08a3.79fd1b4e.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/d1044879.58325100.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/e0719818.d9721f6c.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/1df93b7f.0dc34be2.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/a7456010.b01acea0.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/25c0bc23.53c3d7b9.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/5d3bccab.6957114e.js",
+            "status": 200
+          }
+        ],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:python_1767886342965.png",
+        "skipped": false
+      },
+      "anomalies": []
+    },
+    {
+      "step": 7,
+      "action": {
+        "action_id": "link:playwright_for_python",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:playwright_for_python",
+        "networkCalls": [
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/1df93b7f.0dc34be2.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/assets/js/a7456010.b01acea0.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/playwright-logo.svg",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/Browsers.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/Adobe2.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/ING.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/Outlook.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/accessibilityinsights.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/DHotstar.jpg",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/ReactNavigation.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/MUI.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/Bing.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/python/img/logos/VSCode.png",
+            "status": 200
+          }
+        ],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:playwright_for_python_1767886347190.png",
+        "skipped": false
+      },
+      "anomalies": []
+    },
+    {
+      "step": 8,
+      "action": {
+        "action_id": "link:java",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:java",
+        "networkCalls": [
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/docs/intro",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/css/styles.8bfacc99.css",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/playwright-logo.svg",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/js/redirection.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/runtime~main.2e1dd7d8.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/main.a89c9bea.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/aba21aa0.c688fdbe.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/5e95c892.85fdf69f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a7bd4aaa.5cbccdc5.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/4cf51b27.4bbc8241.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a94703ab.f5435d23.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/common.607559c3.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/7778.9e3fb9a3.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/17896441.5174447f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/f2751a41.dbb9edc8.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/5e95c892.85fdf69f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/aba21aa0.c688fdbe.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a7bd4aaa.5cbccdc5.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/f2751a41.dbb9edc8.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a94703ab.f5435d23.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/17896441.5174447f.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a354b52c.5dd63025.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/4cf51b27.4bbc8241.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/51b66dbc.cfc965ad.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a606bc65.7657b3a5.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/c7ef12f5.3b246098.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/ac972ec7.4ee1d501.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/1df93b7f.0dc34be2.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/90f396e5.4f9f1a4c.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a7456010.b01acea0.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/c671c2db.18c91387.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/c49661c1.98858f4b.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/efc02652.62477e1d.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/1d3a7b85.13d3f5a4.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/940cdc25.9f963067.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/334711a1.25c53bd6.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/2697cf9f.5d9e7cef.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/8c145615.a61d3853.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/5300c885.3f25e241.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/e111845e.d38abd51.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/e0719818.d9721f6c.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/68b3b021.487452af.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/922d8f71.2b342b79.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/083f60f3.57ac973e.js",
+            "status": 200
+          }
+        ],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:java_1767886352156.png",
+        "skipped": false
+      },
+      "anomalies": []
+    },
+    {
+      "step": 9,
+      "action": {
+        "action_id": "link:playwright_for_java",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:playwright_for_java",
+        "networkCalls": [
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/1df93b7f.0dc34be2.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/assets/js/a7456010.b01acea0.js",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/playwright-logo.svg",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/MUI.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/ING.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/Outlook.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/Adobe2.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/Bing.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/accessibilityinsights.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/ReactNavigation.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/DHotstar.jpg",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/Browsers.png",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "url": "https://playwright.dev/java/img/logos/VSCode.png",
+            "status": 200
+          }
+        ],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:playwright_for_java_1767886356388.png",
+        "skipped": false
+      },
+      "anomalies": []
+    }
+  ],
+  "ui_state": {
+    "state_id": "64334a65-a732-47fe-8fbd-ff2ea250c689",
+    "route": "/java/",
+    "title": "Fast and reliable end-to-end testing for modern web apps | Playwright Java",
+    "available_actions": [
+      "button:searchk",
+      "link:playwright_for_java",
+      "link:docs",
+      "link:api",
+      "link:java",
+      "link:java",
+      "link:node.js",
+      "link:python",
+      "link:.net",
+      "link:community",
+      "link:get_started",
+      "link:star",
+      "link:80k+"
+    ],
+    "entities": {}
+  }
+}

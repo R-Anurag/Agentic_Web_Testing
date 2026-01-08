@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-1767876319437",
+  "runtime": {
+    "url": "https://www.youtube.com",
+    "browser": "chromium",
+    "timestamp": "2026-01-08T12:45:19.437Z"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876326453.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 2,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876330558.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 3,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876334644.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 4,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876338736.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 5,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876342832.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 6,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876346917.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 7,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876350993.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 8,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876355078.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 9,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876359173.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    },
+    {
+      "step": 10,
+      "action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "observation": {
+        "action_id": "button:skip_navigation",
+        "network_calls": [],
+        "console_errors": [],
+        "screenshots": [
+          {
+            "type": "after_action",
+            "path": "screenshots/button_skip_navigation_1767876363261.png"
+          }
+        ],
+        "state_delta": {}
+      }
+    }
+  ],
+  "ui_state": {
+    "state_id": "21ce60a2-a5ce-4b69-961d-29a7d7024390",
+    "route": "/",
+    "title": "YouTube",
+    "available_actions": [
+      "button:skip_navigation",
+      "button:search",
+      "button:tap_to_unmute",
+      "button:search",
+      "button:infoshopping",
+      "button:cancel",
+      "button:confirm",
+      "button:watch_later",
+      "button:share",
+      "button:copy_link",
+      "button:live",
+      "button:•",
+      "button:•",
+      "link:sign_in",
+      "link:home_home",
+      "link:shorts_shorts",
+      "link:subscriptions_subscriptions",
+      "link:you_you"
+    ],
+    "entities": {}
+  },
+  "decision": {
+    "schema_version": "1.0",
+    "run_id": "run-1767876319437",
+    "runtime": {
+      "url": "https://www.youtube.com",
+      "browser": "chromium",
+      "timestamp": "2026-01-08T12:45:19.437Z"
+    },
+    "ui_state": {
+      "state_id": "5b13a5a9-4bc8-4a62-ab18-6e1538bc6257",
+      "route": "/",
+      "title": "YouTube",
+      "available_actions": [
+        "button:skip_navigation",
+        "button:search",
+        "button:tap_to_unmute",
+        "button:search",
+        "button:infoshopping",
+        "button:cancel",
+        "button:confirm",
+        "button:watch_later",
+        "button:share",
+        "button:copy_link",
+        "button:live",
+        "button:•",
+        "button:•",
+        "link:sign_in",
+        "link:home_home",
+        "link:shorts_shorts",
+        "link:subscriptions_subscriptions",
+        "link:you_you"
+      ],
+      "entities": {}
+    },
+    "last_action": {
+      "action_id": "button:skip_navigation",
+      "parameters": {}
+    },
+    "observation": {
+      "action_id": "button:skip_navigation",
+      "network_calls": [],
+      "console_errors": [],
+      "screenshots": [
+        {
+          "type": "after_action",
+          "path": "screenshots/button_skip_navigation_1767876359173.png"
+        }
+      ],
+      "state_delta": {}
+    },
+    "decision": {
+      "next_action": {
+        "action_id": "button:skip_navigation",
+        "parameters": {}
+      },
+      "control": "CONTINUE"
+    },
+    "anomalies": []
+  },
+  "last_action": {
+    "action_id": "button:skip_navigation",
+    "parameters": {}
+  },
+  "observation": {
+    "action_id": "button:skip_navigation",
+    "network_calls": [],
+    "console_errors": [],
+    "screenshots": [
+      {
+        "type": "after_action",
+        "path": "screenshots/button_skip_navigation_1767876363261.png"
+      }
+    ],
+    "state_delta": {}
+  }
+}

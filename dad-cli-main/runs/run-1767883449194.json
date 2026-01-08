@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-1767883449194",
+  "runtime": {
+    "url": "https://playwright.dev/",
+    "browser": "chromium",
+    "timestamp": "2026-01-08T14:44:09.194Z"
+  },
+  "steps": [],
+  "ui_state": {
+    "state_id": "a663d067-03d0-4f1b-895a-8cc9b8528db2",
+    "route": "/",
+    "title": "Fast and reliable end-to-end testing for modern web apps | Playwright",
+    "available_actions": [
+      "button:searchk",
+      "link:playwright",
+      "link:docs",
+      "link:api",
+      "link:node.js",
+      "link:node.js",
+      "link:python",
+      "link:java",
+      "link:.net",
+      "link:community",
+      "link:get_started",
+      "link:star",
+      "link:80k+"
+    ],
+    "entities": {}
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "dad-agent",
+  "displayName": "DAD Agent",
+  "description": "Autonomous runtime discovery & integration testing agent",
+  "publisher": "dad-agent",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:dadView",
+    "onCommand:dad.start"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dad.start",
+        "title": "▶ Start DAD Test"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "dad",
+          "title": "DAD",
+          "icon": "media/dad.svg"
+        }
+      ]
+    },
+    "views": {
+      "dad": [
+        {
+          "id": "dadView",
+          "name": "DAD Controls"
+        }
+      ]
+    },
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "dad.start",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  }
+}

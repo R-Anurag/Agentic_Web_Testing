@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-1767884985707",
+  "runtime": {
+    "url": "https://playwright.dev/",
+    "browser": "chromium",
+    "timestamp": "2026-01-08T15:09:45.707Z"
+  },
+  "steps": [
+    {
+      "step": 0,
+      "action": {
+        "action_id": "button:searchk",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "button:searchk",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/button:searchk_1767885020843.png",
+        "skipped": true
+      },
+      "anomalies": []
+    },
+    {
+      "step": 1,
+      "action": {
+        "action_id": "link:playwright",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:playwright",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:playwright_1767885054991.png",
+        "skipped": true
+      },
+      "anomalies": []
+    },
+    {
+      "step": 2,
+      "action": {
+        "action_id": "link:docs",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:docs",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:docs_1767885089124.png",
+        "skipped": true
+      },
+      "anomalies": []
+    },
+    {
+      "step": 3,
+      "action": {
+        "action_id": "link:api",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:api",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:api_1767885123258.png",
+        "skipped": true
+      },
+      "anomalies": []
+    },
+    {
+      "step": 4,
+      "action": {
+        "action_id": "link:node.js",
+        "parameters": {}
+      },
+      "observation": {
+        "actionId": "link:node.js",
+        "networkCalls": [],
+        "consoleErrors": [],
+        "screenshotPath": "screenshots/link:node.js_1767885157380.png",
+        "skipped": true
+      },
+      "anomalies": []
+    }
+  ],
+  "ui_state": {
+    "state_id": "6a91a690-9f81-4f85-ae5d-140a058f7dc9",
+    "route": "/",
+    "title": "Fast and reliable end-to-end testing for modern web apps | Playwright",
+    "available_actions": [
+      "button:searchk",
+      "link:playwright",
+      "link:docs",
+      "link:api",
+      "link:node.js",
+      "link:node.js",
+      "link:python",
+      "link:java",
+      "link:.net",
+      "link:community",
+      "link:get_started",
+      "link:star",
+      "link:80k+"
+    ],
+    "entities": {}
+  }
+}

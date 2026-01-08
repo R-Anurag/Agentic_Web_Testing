@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-1767874624007",
+  "runtime": {
+    "url": "http://localhost:5173",
+    "browser": "chromium",
+    "timestamp": "2026-01-08T12:17:04.007Z"
+  },
+  "ui_state": {
+    "state_id": "4949a049-4ac2-4a1b-8878-51f9e9e50d43",
+    "route": "/",
+    "title": "DAD Test App",
+    "available_actions": [
+      "button:home_action",
+      "link:home",
+      "link:login",
+      "link:dashboard",
+      "link:form_flow",
+      "link:error_page"
+    ],
+    "entities": {}
+  }
+}
