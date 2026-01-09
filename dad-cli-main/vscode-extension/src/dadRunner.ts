@@ -1,10 +1,16 @@
 import * as vscode from "vscode";
 import * as path from "path";
+import { spawn } from "child_process";
 
 export async function runDAD() {
-  const workspace = vscode.workspace.workspaceFolders?.[0];
+
+  const workspace =
+    vscode.workspace.workspaceFolders?.[0];
+
   if (!workspace) {
-    vscode.window.showErrorMessage("Please open a project folder.");
+    vscode.window.showErrorMessage(
+      "Please open a project folder."
+    );
     return;
   }
 
@@ -20,7 +26,31 @@ export async function runDAD() {
     "runtime-discovery"
   );
 
-  const terminal = vscode.window.createTerminal("DAD Test");
-  terminal.show();
-  terminal.sendText(`cd "${runtimePath}" && npm run start ${url}`);
+  vscode.window.showInformationMessage(
+    "Starting DAD runtime discovery..."
+  );
+
+  const child = spawn('npm', ['run', 'start', url], {
+    cwd: runtimePath,
+    shell: true,
+    env: { ...process.env, PATH: process.env.PATH }
+  });
+
+  child.on('error', (error) => {
+    vscode.window.showErrorMessage(
+      "DAD failed: " + error.message
+    );
+  });
+
+  child.on('close', (code) => {
+    if (code === 0) {
+      vscode.window.showInformationMessage(
+        "DAD completed successfully"
+      );
+    } else {
+      vscode.window.showErrorMessage(
+        `DAD failed with exit code ${code}`
+      );
+    }
+  });
 }

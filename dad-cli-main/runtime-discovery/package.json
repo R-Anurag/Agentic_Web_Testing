@@ -1,17 +1,17 @@
 {
   "name": "dad-runtime-discovery",
   "version": "0.1.0",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "tsx src/runAgent.ts",
     "test": "vitest"
   },
   "dependencies": {
-    "playwright": "^1.41.0",
+    "playwright": "^1.57.0",
     "react-router-dom": "^7.11.0"
   },
   "devDependencies": {
-    "ts-node": "^10.9.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.3.3",
     "vitest": "^1.1.0"
   }

@@ -1,25 +1,125 @@
-# DAD Agent (MVP)
+# DAD Agent
 
-DAD Agent is an autonomous integration-testing system.
+AI-powered autonomous testing agent that intelligently explores and tests web applications using LangGraph decision-making and browser automation.
 
-## Features (MVP)
-- Runtime UI action discovery
-- Network + console observation
-- Screenshot capture
-- VS Code one-click runner
-- Framework agnostic
+## Prerequisites
 
-## Requirements
-- Node.js >= 18
-- VS Code
-- Any frontend app
+- **Node.js >= 18**
+- **Docker** (for Qdrant vector database)
+- **VS Code** (optional, for extension)
 
-## Run
-1. Start your app
-2. Click "Start DAD Agent" in VS Code
-3. Observe JSON output + screenshots
+## Setup
 
-## Next
-- LangGraph reasoning
-- Graph modeling
-- Error diagnosis
+### 1. Install Dependencies
+```bash
+npm install
+cd runtime-discovery && npm install
+cd ../vscode-extension && npm install
+```
+
+### 2. Start Qdrant Vector Database
+```bash
+# Start Qdrant with Docker
+docker run -p 6333:6333 -v $(pwd)/qdrant_data:/qdrant/storage qdrant/qdrant
+
+# Create knowledge base collection
+node createCollection.ts
+```
+
+### 3. Configure Environment (Optional)
+```bash
+# Copy and edit .env for Azure/OpenAI embeddings
+cp .env.example .env
+# Edit OPENAI_API_KEY, AZURE_* settings
+# Default uses local embeddings (@xenova/transformers)
+```
+
+### 4. Install Playwright Browsers
+```bash
+cd runtime-discovery
+npx playwright install
+```
+
+## Usage
+
+### Run Autonomous Testing
+```bash
+cd runtime-discovery
+npm run start https://your-app-url.com
+```
+
+### Test Knowledge Base
+```bash
+node testKB.ts
+```
+
+### Analyze Results
+```bash
+node error-intelligence/pipeline.js runs/<run-id>.json reports/analysis.json
+```
+
+## Architecture
+
+### 🧠 LangGraph Agent Pipeline
+- **Anomaly Detection** - Identifies UI/network issues
+- **Diagnosis** - Analyzes root causes  
+- **Memory** - Maintains testing context
+- **Decision Engine** - AI-powered action selection
+- **Executor** - Safe action execution with confidence thresholds
+- **Validator** - Result verification
+- **Learner** - Knowledge accumulation
+
+### 🔍 Runtime Discovery
+- Dynamic UI action discovery (buttons, links, forms, inputs, selects)
+- Network monitoring and console error tracking
+- Screenshot capture with stability detection
+- Playwright-based browser automation
+
+### 📊 Error Intelligence
+- Multi-stage analysis pipeline
+- Azure Vision safety checks
+- Performance monitoring
+- Evidence correlation (screenshots + network traces)
+
+### 🧮 Knowledge Management
+- **Qdrant Vector Database** (port 6333)
+- **Local Embeddings** (@xenova/transformers, 384-dim)
+- **Azure Embeddings** (optional, 1536-dim)
+- Semantic search for learned behaviors
+- Success/failure pattern recognition
+- Confidence scoring for solutions
+
+## VS Code Integration
+
+```bash
+cd vscode-extension
+npm run compile
+# Press F5 to launch extension development host
+```
+
+## Output Structure
+
+- **`runs/`** - Test execution traces (JSON)
+- **`screenshots/`** - UI screenshots during testing
+- **`reports/`** - Analysis reports
+- **`qdrant_data/`** - Vector database storage
+- **Knowledge Base** - Stored at `http://localhost:6333`
+
+## Troubleshooting
+
+**Qdrant Connection Issues:**
+```bash
+# Check if Qdrant is running
+curl http://localhost:6333/collections
+
+# Restart Qdrant
+docker restart <qdrant-container-id>
+```
+
+**Missing Dependencies:**
+```bash
+# Install all dependencies
+npm install
+cd runtime-discovery && npm install
+cd ../vscode-extension && npm install
+```

@@ -1,38 +1,43 @@
-import { StateGraph, Annotation } from "@langchain/langgraph";
+import { memoryNode } from "./nodes/memory.ts";
+import { diagnoserNode } from "./nodes/diagnoser.ts";
+import { executorNode } from "./nodes/executor.ts";
+import { validatorNode } from "./nodes/validator.ts";
+import { learnerNode } from "./nodes/learner.ts";
 
-import { anomalyDetector } from "./nodes/anomalyDetector";
-import { decisionEngine } from "./nodes/decisionEngine";
-import { controlRouter } from "./nodes/controlRouter";
+import { anomalyDetector } from "./nodes/anomalyDetector.ts";
+import { decisionEngine } from "./nodes/decisionEngine.ts";
+import { controlRouter } from "./nodes/controlRouter.ts";
 
-/**
- * Minimal AgentState schema
- * LangGraph only needs field presence, not types
- */
-const AgentStateSchema = Annotation.Root({
-  schema_version: Annotation,
-  run_id: Annotation,
-  runtime: Annotation,
-  ui_state: Annotation,
-  last_action: Annotation,
-  observation: Annotation,
-  knowledge: Annotation,
-  decision: Annotation,
-  anomalies: Annotation
-});
-
+// Simple state management without LangGraph
 export function buildPrompt3Graph() {
-  // ⛔ LangGraph TS typings are broken for edges
-  // ✅ Relax typing at boundary (this is intentional)
-  const graph = new StateGraph(AgentStateSchema) as any;
-
-  graph.addNode("detect_anomalies", anomalyDetector);
-  graph.addNode("decide", decisionEngine);
-  graph.addNode("control", controlRouter);
-
-  graph.addEdge("__start__", "detect_anomalies");
-  graph.addEdge("detect_anomalies", "decide");
-  graph.addEdge("decide", "control");
-  graph.addEdge("control", "__end__");
-
-  return graph.compile();
+  return {
+    invoke: async (state: any) => {
+      // Run through all nodes manually
+      let currentState = { ...state };
+      
+      // 1. Anomaly Detection
+      currentState = anomalyDetector(currentState);
+      
+      // 2. Diagnosis
+      currentState = await diagnoserNode(currentState);
+      
+      // 3. Memory
+      currentState = await memoryNode(currentState);
+      
+      // 4. Decision
+      currentState = decisionEngine(currentState);
+      
+      // 5. Executor (handled externally)
+      // 6. Validator
+      currentState = await validatorNode(currentState);
+      
+      // 7. Learner
+      currentState = await learnerNode(currentState);
+      
+      // 8. Control
+      currentState = controlRouter(currentState);
+      
+      return currentState;
+    }
+  };
 }

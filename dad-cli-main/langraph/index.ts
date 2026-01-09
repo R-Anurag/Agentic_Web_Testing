@@ -1,13 +1,31 @@
-import { buildPrompt3Graph } from "./graph";
-import { AgentState } from "./types";
+import { buildPrompt3Graph } from "./graph.ts";
+import { AgentState } from "./types.ts";
 
 const graph = buildPrompt3Graph();
 
-export async function runPrompt3(state: AgentState) {
-  const result = await graph.invoke(state);
-  return {
-    next_action: result.next_action,
-    control: result.control,
-    anomalies: result.anomalies ?? []
-  };
+export async function runPrompt3(state: AgentState): Promise<AgentState> {
+  try {
+    if (!state) {
+      throw new Error("Invalid state: state is null or undefined");
+    }
+    
+    const result = await graph.invoke(state);
+    
+    if (!result) {
+      throw new Error("LangGraph returned null result");
+    }
+    
+    return result;
+  } catch (error) {
+    console.error("❌ LangGraph execution failed:", error instanceof Error ? error.message : String(error));
+    return {
+      ...state,
+      decision: {
+        next_action: null,
+        control: "TERMINATE"
+      },
+      next_action: null,
+      control: "TERMINATE"
+    };
+  }
 }

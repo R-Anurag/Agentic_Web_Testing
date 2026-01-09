@@ -1,15 +1,18 @@
 export function checkConsoleErrors(state: any) {
-  const errors = state.observation?.console_errors ?? [];
-
-  if (errors.length > 0) {
+  const steps = state.steps || [];
+  const lastStep = steps[steps.length - 1];
+  
+  if (!lastStep?.observation) return null;
+  
+  const consoleErrors = lastStep.observation.consoleErrors || [];
+  
+  if (consoleErrors.length > 0) {
     return {
-      severity: "HIGH",
-      category: "FRONTEND_EXCEPTION",
-      action_id: state.last_action?.action_id ?? "unknown",
-      description: "Console errors detected during action",
-      evidence: { errors }
+      type: "CONSOLE_ERROR",
+      severity: "MEDIUM",
+      message: `Console errors detected: ${consoleErrors.join(", ")}`
     };
   }
-
+  
   return null;
 }
