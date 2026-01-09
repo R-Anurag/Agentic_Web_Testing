@@ -7,7 +7,6 @@
   "engines": {
     "vscode": "^1.85.0"
   },
-  "categories": ["Testing", "Other"],
   "activationEvents": [
     "onStartupFinished",
     "onView:dadView",
@@ -33,7 +32,6 @@
     "views": {
       "dad": [
         {
-          "type": "webview",
           "id": "dadView",
           "name": "DAD Controls"
         }

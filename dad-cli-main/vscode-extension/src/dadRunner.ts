@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import * as path from "path";
-import { spawn } from "child_process";
 
 export async function runDAD() {
 
@@ -9,7 +8,7 @@ export async function runDAD() {
 
   if (!workspace) {
     vscode.window.showErrorMessage(
-      "Please open a project folder."
+      "Please open a project folder first."
     );
     return;
   }
@@ -21,36 +20,31 @@ export async function runDAD() {
 
   if (!url) return;
 
+  const headful = await vscode.window.showQuickPick(
+    ["Yes", "No"],
+    { placeHolder: "Show browser window?" }
+  );
+
+  if (!headful) return;
+
+  // 🔥 FIXED PATH (matches your real structure)
   const runtimePath = path.join(
     workspace.uri.fsPath,
+    "dad-cli",
+    "dad-cli-main",
     "runtime-discovery"
   );
 
-  vscode.window.showInformationMessage(
-    "Starting DAD runtime discovery..."
+  const terminal =
+    vscode.window.createTerminal("DAD Test");
+
+  terminal.show();
+
+  const headfulFlag =
+    headful === "Yes" ? " --headful" : "";
+
+  // PowerShell safe
+  terminal.sendText(
+    `cd "${runtimePath}"; npm run start -- ${url}${headfulFlag}`
   );
-
-  const child = spawn('npm', ['run', 'start', url], {
-    cwd: runtimePath,
-    shell: true,
-    env: { ...process.env, PATH: process.env.PATH }
-  });
-
-  child.on('error', (error) => {
-    vscode.window.showErrorMessage(
-      "DAD failed: " + error.message
-    );
-  });
-
-  child.on('close', (code) => {
-    if (code === 0) {
-      vscode.window.showInformationMessage(
-        "DAD completed successfully"
-      );
-    } else {
-      vscode.window.showErrorMessage(
-        `DAD failed with exit code ${code}`
-      );
-    }
-  });
 }

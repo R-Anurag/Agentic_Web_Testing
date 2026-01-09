@@ -4,11 +4,25 @@ import { runPrompt3 } from "../../langraph/index.ts";
 import { AgentState, AgentStep, ActionContract } from "./types.js";
 import { storeKnowledge } from "../../knowledge/store.ts";
 
-const [, , targetUrl] = process.argv;
+const args = process.argv.slice(2);
+const headfulIndex = args.indexOf('--headful');
+const headless = headfulIndex === -1;
+
+// Remove --headful flag from args to get URL
+if (headfulIndex !== -1) {
+  args.splice(headfulIndex, 1);
+}
+
+const targetUrl = args[0];
 
 if (!targetUrl) {
-  console.error("Usage: node runAgent.js <url>");
+  console.error("Usage: npm run start <url> or npm run start-headful <url>");
   process.exit(1);
+}
+
+if (!headless) {
+  console.log("🖥️ Running in headful mode (browser visible)");
+  console.log("🕰️ Browser will stay open during automation...");
 }
 
 /* ----------------------------------------
@@ -100,7 +114,7 @@ async function main() {
 
     // Initial UI discovery
     try {
-      state.ui_state = await discoverUI(targetUrl);
+      state.ui_state = await discoverUI(targetUrl, headless);
     } catch (error) {
       console.error("❌ Initial UI discovery failed:", error instanceof Error ? error.message : String(error));
       process.exit(1);
@@ -121,17 +135,46 @@ async function main() {
         }
 
         // ---------------------------------
+        // FORCE modal dismissal first
+        // ---------------------------------
+        const modalActions = state.ui_state?.available_actions?.filter(actionId => {
+          // Check if this is likely a modal dismiss button
+          const lowerAction = actionId.toLowerCase();
+          return lowerAction.includes('close') || 
+                 lowerAction.includes('cancel') || 
+                 lowerAction.includes('ok') || 
+                 lowerAction.includes('dismiss') ||
+                 lowerAction.includes('accept') ||
+                 lowerAction.includes('continue') ||
+                 lowerAction.includes('agree');
+        }) || [];
+
+        const tried = new Set(state.steps.map(s => s.action.action_id));
+        const untriedModalAction = modalActions.find(a => !tried.has(a));
+
+        // If there's an untried modal action, prioritize it
+        if (untriedModalAction) {
+          console.log(`🚨 Forcing modal dismissal: ${untriedModalAction}`);
+          state.next_action = {
+            action_id: untriedModalAction,
+            parameters: {}
+          };
+          state.control = "CONTINUE";
+        }
+        // ---------------------------------
         // Prompt-3 decision (now returns full state)
         // ---------------------------------
-        let updatedState;
-        try {
-          updatedState = await runPrompt3(state);
-          Object.assign(state, updatedState);
-        } catch (error) {
-          console.error("❌ LangGraph decision failed:", error instanceof Error ? error.message : String(error));
-          // Force fallback on LangGraph failure
-          state.control = "TERMINATE";
-          state.next_action = undefined;
+        else {
+          let updatedState;
+          try {
+            updatedState = await runPrompt3(state);
+            Object.assign(state, updatedState);
+          } catch (error) {
+            console.error("❌ LangGraph decision failed:", error instanceof Error ? error.message : String(error));
+            // Force fallback on LangGraph failure
+            state.control = "TERMINATE";
+            state.next_action = undefined;
+          }
         }
 
         // ---------------------------------
@@ -179,25 +222,56 @@ async function main() {
         }
 
         // ---------------------------------
-        // Refresh UI
+        // Refresh UI and detect changes
         // ---------------------------------
+        const oldActions = new Set(state.ui_state?.available_actions || []);
+        const oldModalCount = state.ui_state?.available_actions?.filter(a => 
+          a.toLowerCase().includes('close') || 
+          a.toLowerCase().includes('cancel') || 
+          a.toLowerCase().includes('ok')
+        ).length || 0;
+
         try {
-          state.ui_state = await discoverUI(targetUrl);
+          state.ui_state = await discoverUI(targetUrl, headless);
         } catch (error) {
           console.error("❌ UI refresh failed:", error instanceof Error ? error.message : String(error));
           // Continue with existing UI state
         }
 
+        const newActions = new Set(state.ui_state?.available_actions || []);
+        const newModalCount = state.ui_state?.available_actions?.filter(a => 
+          a.toLowerCase().includes('close') || 
+          a.toLowerCase().includes('cancel') || 
+          a.toLowerCase().includes('ok')
+        ).length || 0;
+
+        // Detect significant state changes
+        const actionsAdded = [...newActions].filter(a => !oldActions.has(a));
+        const actionsRemoved = [...oldActions].filter(a => !newActions.has(a));
+        const modalDismissed = oldModalCount > 0 && newModalCount === 0;
+
+        if (actionsAdded.length > 0) {
+          console.log(`🆕 New elements appeared:`, actionsAdded);
+        }
+        if (actionsRemoved.length > 0) {
+          console.log(`🗑️ Elements disappeared:`, actionsRemoved);
+        }
+        if (modalDismissed) {
+          console.log(`✅ Modal dismissed - UI unlocked`);
+          consecutiveFailures = 0; // Reset failures on modal dismissal
+        }
+
         const newStateId = state.ui_state?.state_id ?? null;
 
-        const noProgress =
-          lastStateId !== null && newStateId === lastStateId;
+        // Better progress detection
+        const significantChange = actionsAdded.length > 0 || actionsRemoved.length > 0 || modalDismissed;
+        const noProgress = lastStateId !== null && newStateId === lastStateId && !significantChange;
 
         lastStateId = newStateId;
 
         const failed = observation.skipped || noProgress;
 
-        if (failed) consecutiveFailures++;
+        if (failed && !modalDismissed) consecutiveFailures++;
         else consecutiveFailures = 0;
 
         const agentStep: AgentStep = {
