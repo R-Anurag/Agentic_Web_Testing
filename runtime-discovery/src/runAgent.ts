@@ -1,14 +1,62 @@
-import fs from "fs";
-import { discoverUI, executeAction } from "./agentRuntime.js";
-import { runPrompt3 } from "../../langraph/index.ts";
+import { discoverUI, executeAction, initializeBrowser, closeBrowser, takeScreenshot } from "./agentRuntime.js";
+import { runPrompt3 } from "../../langraph/index.js";
 import { AgentState, AgentStep, ActionContract } from "./types.js";
-import { storeKnowledge } from "../../knowledge/store.ts";
+import { storeKnowledge } from "../../knowledge/store.js";
+import { searchKnowledge } from "../../knowledge/retrieve.js";
+import { validateUrl } from "./urlValidator.js";
+import axios from "axios";
+import dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config({ path: 'runtime-discovery/.env' });
+
+const cosmosApi = axios.create({
+  baseURL: "http://localhost:5050",
+  headers: {
+    "x-api-key": "daddychill123supersecretkey"
+  }
+});
+
+const insertTestRun = async (data: any) => {
+  try {
+    return await cosmosApi.post("/db/test-runs", data);
+  } catch (err) {
+    console.warn("⚠️ CosmosDB: Failed to insert test run:", err instanceof Error ? err.message : String(err));
+    return null;
+  }
+};
+
+const insertTestStep = async (data: any) => {
+  try {
+    return await cosmosApi.post("/db/test-steps", data);
+  } catch (err) {
+    console.warn("⚠️ CosmosDB: Failed to insert test step:", err instanceof Error ? err.message : String(err));
+    return null;
+  }
+};
+
+const insertAnomaly = async (data: any) => {
+  try {
+    return await cosmosApi.post("/db/anomalies", data);
+  } catch (err) {
+    console.warn("⚠️ CosmosDB: Failed to insert anomaly:", err instanceof Error ? err.message : String(err));
+    return null;
+  }
+};
+
+const updateTestRun = async (runId: string, data: any) => {
+  try {
+    return await cosmosApi.put(`/db/test-runs/${runId}`, data);
+  } catch (err) {
+    console.warn("⚠️ CosmosDB: Failed to update test run:", err instanceof Error ? err.message : String(err));
+    return null;
+  }
+};
 
 const args = process.argv.slice(2);
 const headfulIndex = args.indexOf('--headful');
 const headless = headfulIndex === -1;
 
-// Remove --headful flag from args to get URL
 if (headfulIndex !== -1) {
   args.splice(headfulIndex, 1);
 }
@@ -20,14 +68,13 @@ if (!targetUrl) {
   process.exit(1);
 }
 
-if (!headless) {
-  console.log("🖥️ Running in headful mode (browser visible)");
-  console.log("🕰️ Browser will stay open during automation...");
+try {
+  validateUrl(targetUrl);
+} catch (error) {
+  console.error("❌ Invalid URL:", error instanceof Error ? error.message : String(error));
+  process.exit(1);
 }
 
-/* ----------------------------------------
-   Runtime Bridge Function
------------------------------------------ */
 async function createRuntimeExecutor(targetUrl: string) {
   return async (action_id: string, parameters: Record<string, any>): Promise<void> => {
     const action: ActionContract = { action_id, parameters };
@@ -35,84 +82,41 @@ async function createRuntimeExecutor(targetUrl: string) {
   };
 }
 
-/* ----------------------------------------
-   Persist Agent Knowledge
------------------------------------------ */
-async function persistRunKnowledge(state: AgentState) {
-  try {
-    for (const step of state.steps) {
-      try {
-        // ❌ Store failures
-        if (step.observation.skipped) {
-          await storeKnowledge({
-            type: "error",
-            content: `Action ${step.action.action_id} failed`,
-            run_id: state.run_id,
-            metadata: {
-              endpoint: state.runtime.url,
-              env: "runtime",
-              timestamp: new Date().toISOString()
-            }
-          });
-        }
-
-        // ⚠️ Store anomalies
-        if (step.anomalies && step.anomalies.length > 0) {
-          for (const anomaly of step.anomalies) {
-            await storeKnowledge({
-              type: "error",
-              content: JSON.stringify(anomaly),
-              run_id: state.run_id,
-              metadata: {
-                endpoint: state.runtime.url,
-                env: "runtime",
-                timestamp: new Date().toISOString()
-              }
-            });
-          }
-        }
-
-        // ✅ Store successful flows with solution
-        if (!step.observation.skipped) {
-          await storeKnowledge({
-            type: "flow",
-            content: `Successful action: ${step.action.action_id}`,
-            solution: step.action.action_id, // Add solution field
-            confidence: 0.8,
-            run_id: state.run_id,
-            metadata: {
-              endpoint: state.runtime.url,
-              env: "runtime",
-              timestamp: new Date().toISOString()
-            }
-          });
-        }
-      } catch (error) {
-        console.error("❌ Failed to store knowledge for step:", step.step, error instanceof Error ? error.message : String(error));
-      }
-    }
-  } catch (error) {
-    console.error("❌ Failed to persist run knowledge:", error instanceof Error ? error.message : String(error));
-  }
-}
-
 async function main() {
+  const graphRunId = `run-${Date.now()}`;
+  let stepIndex = 0;
+
   try {
     const state: AgentState = {
       schema_version: "1.0",
-      run_id: `run-${Date.now()}`,
+      run_id: graphRunId,
       runtime: {
         url: targetUrl,
         browser: "chromium",
         timestamp: new Date().toISOString(),
-        execute: await createRuntimeExecutor(targetUrl) // Add runtime bridge
+        execute: await createRuntimeExecutor(targetUrl)
       },
       steps: []
     };
 
-    console.log("[Runtime] Target URL:", targetUrl);
+    await insertTestRun({
+      runId: graphRunId,
+      targetUrl,
+      startedAt: new Date().toISOString(),
+      status: "running",
+      totalSteps: 0,
+      successfulSteps: 0,
+      failedSteps: 0,
+      anomaliesCount: 0
+    });
 
-    // Initial UI discovery
+    try {
+      await initializeBrowser(headless);
+    } catch (error) {
+      console.error("❌ Failed to initialize browser:", error instanceof Error ? error.message : String(error));
+      process.exit(1);
+    }
+
     try {
       state.ui_state = await discoverUI(targetUrl, headless);
     } catch (error) {
@@ -120,208 +124,147 @@ async function main() {
       process.exit(1);
     }
 
-    let lastStateId: string | null = null;
     let consecutiveFailures = 0;
+    let noActionSteps = 0;
+    const MAX_CONSECUTIVE_FAILURES = 5;
+    const MAX_NO_ACTION_STEPS = 3;
 
-    for (let step = 0; step < 10; step++) {
+    for (let step = 0; step < 100; step++) {
       try {
-        console.log(`\n[Loop] Step ${step + 1}`);
-        console.log("[DEBUG] Available actions:", state.ui_state?.available_actions);
-
-        // 🔒 Safety stop
-        if (consecutiveFailures >= 5) {
-          console.log("[Loop] Too many failed actions. Stopping.");
+        if (state.ui_state?.route === '/error' && step > 5) {
+          console.log("🛑 Stuck in error route - terminating");
           break;
         }
 
-        // ---------------------------------
-        // FORCE modal dismissal first
-        // ---------------------------------
-        const modalActions = state.ui_state?.available_actions?.filter(actionId => {
-          // Check if this is likely a modal dismiss button
-          const lowerAction = actionId.toLowerCase();
-          return lowerAction.includes('close') || 
-                 lowerAction.includes('cancel') || 
-                 lowerAction.includes('ok') || 
-                 lowerAction.includes('dismiss') ||
-                 lowerAction.includes('accept') ||
-                 lowerAction.includes('continue') ||
-                 lowerAction.includes('agree');
-        }) || [];
-
-        const tried = new Set(state.steps.map(s => s.action.action_id));
-        const untriedModalAction = modalActions.find(a => !tried.has(a));
-
-        // If there's an untried modal action, prioritize it
-        if (untriedModalAction) {
-          console.log(`🚨 Forcing modal dismissal: ${untriedModalAction}`);
-          state.next_action = {
-            action_id: untriedModalAction,
-            parameters: {}
-          };
-          state.control = "CONTINUE";
-        }
-        // ---------------------------------
-        // Prompt-3 decision (now returns full state)
-        // ---------------------------------
-        else {
-          let updatedState;
-          try {
-            updatedState = await runPrompt3(state);
-            Object.assign(state, updatedState);
-          } catch (error) {
-            console.error("❌ LangGraph decision failed:", error instanceof Error ? error.message : String(error));
-            // Force fallback on LangGraph failure
-            state.control = "TERMINATE";
-            state.next_action = undefined;
-          }
+        if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+          console.log(`🛑 Too many consecutive failures (${consecutiveFailures}) - terminating`);
+          break;
         }
 
-        // ---------------------------------
-        // FORCE fallback if Prompt-3 stops
-        // ---------------------------------
-        if (state.control !== "CONTINUE" || !state.next_action) {
-          console.log("[Loop] Prompt-3 stopped. Forcing fallback.");
-
-          const tried = new Set(
-            state.steps.map(s => s.action.action_id)
-          );
-
-          const fallback = state.ui_state?.available_actions
-            ?.find(a => !tried.has(a));
-
-          if (!fallback) {
-            console.log("[Loop] No fallback actions left.");
-            break;
-          }
-
-          state.next_action = {
-            action_id: fallback,
-            parameters: {}
-          };
-          state.control = "CONTINUE";
+        if (noActionSteps >= MAX_NO_ACTION_STEPS) {
+          console.log(`🛑 No available actions for ${noActionSteps} steps - terminating`);
+          break;
         }
 
-        console.log("[Loop] Executing:", state.next_action.action_id);
+        console.log(`\n[Loop] Step ${step + 1}`);
 
-        // ---------------------------------
-        // Execute action
-        // ---------------------------------
+        // Capture state ID BEFORE execution to attribute the action correctly
+        const preExecutionStateId = state.ui_state?.state_id;
+
+        // Capture screenshot for graph tracking
+        try {
+          const screenshotPath = await takeScreenshot(`state_${preExecutionStateId}`);
+          state.screenshot_url = screenshotPath;
+        } catch (err) {
+          console.warn("⚠️ Failed to capture state screenshot:", err);
+        }
+
+        try {
+          const updatedState = await runPrompt3(state);
+          state.next_action = updatedState.next_action;
+          state.reasoning = updatedState.reasoning || updatedState.decision?.reasoning;
+        } catch (error) {
+          console.error("❌ Agent logic failed:", error instanceof Error ? error.message : String(error));
+          state.reasoning = `Agent logic failed during decision phase: ${error instanceof Error ? error.message : String(error)}`;
+          consecutiveFailures++;
+        }
+
+        console.log("[DEBUG] Next action:", state.next_action?.action_id);
+
+        if (!state.next_action || !state.ui_state?.available_actions?.length) {
+          noActionSteps++;
+        } else {
+          noActionSteps = 0;
+        }
+
         let observation;
         try {
-          observation = await executeAction(state.next_action);
+          if (state.next_action) {
+            observation = await executeAction(state.next_action);
+          } else {
+            const idleScreenshot = await takeScreenshot("idle");
+            observation = {
+              actionId: "no_action",
+              networkCalls: [],
+              consoleErrors: [],
+              screenshotPath: idleScreenshot,
+              skipped: true
+            };
+          }
         } catch (error) {
           console.error("❌ Action execution failed:", error instanceof Error ? error.message : String(error));
+          consecutiveFailures++;
+          const errorScreenshot = await takeScreenshot("error");
           observation = {
-            actionId: state.next_action.action_id,
+            actionId: state.next_action?.action_id || "unknown",
             networkCalls: [],
-            consoleErrors: [],
-            screenshotPath: "",
+            consoleErrors: [error instanceof Error ? error.message : String(error)],
+            screenshotPath: errorScreenshot,
             skipped: true
           };
         }
 
-        // ---------------------------------
-        // Refresh UI and detect changes
-        // ---------------------------------
-        const oldActions = new Set(state.ui_state?.available_actions || []);
-        const oldModalCount = state.ui_state?.available_actions?.filter(a => 
-          a.toLowerCase().includes('close') || 
-          a.toLowerCase().includes('cancel') || 
-          a.toLowerCase().includes('ok')
-        ).length || 0;
-
         try {
           state.ui_state = await discoverUI(targetUrl, headless);
+          if (state.ui_state && state.ui_state.available_actions.length > 0) {
+            consecutiveFailures = 0;
+          }
         } catch (error) {
-          console.error("❌ UI refresh failed:", error instanceof Error ? error.message : String(error));
-          // Continue with existing UI state
+          console.warn("⚠️ UI refresh failed:", error instanceof Error ? error.message : String(error));
+          consecutiveFailures++;
         }
 
-        const newActions = new Set(state.ui_state?.available_actions || []);
-        const newModalCount = state.ui_state?.available_actions?.filter(a => 
-          a.toLowerCase().includes('close') || 
-          a.toLowerCase().includes('cancel') || 
-          a.toLowerCase().includes('ok')
-        ).length || 0;
+        // Update internal state steps for memory-based decisions
+        state.steps.push({
+          step: stepIndex,
+          action: state.next_action || { action_id: "none", parameters: {} },
+          observation: observation,
+          state_id: preExecutionStateId,
+          anomalies: state.anomalies || []
+        });
 
-        // Detect significant state changes
-        const actionsAdded = [...newActions].filter(a => !oldActions.has(a));
-        const actionsRemoved = [...oldActions].filter(a => !newActions.has(a));
-        const modalDismissed = oldModalCount > 0 && newModalCount === 0;
+        await insertTestStep({
+          runId: graphRunId,
+          stepIndex: stepIndex++,
+          actionId: state.next_action?.action_id || "unknown",
+          actionType: state.next_action?.action_id?.split(":")[0] || (state.next_action ? "unknown" : "idle"),
+          parameters: state.next_action?.parameters || {},
+          timestamp: new Date().toISOString(),
+          status: observation.skipped ? "failed" : "success",
+          screenshotPath: observation.screenshotPath || "",
+          networkCalls: observation.networkCalls.length,
+          consoleErrors: observation.consoleErrors,
+          stateId: preExecutionStateId, // Essential for branching
+          reasoning: state.reasoning || (state.next_action ? "Executing planned action." : "No action determined by agent.")
+        });
 
-        if (actionsAdded.length > 0) {
-          console.log(`🆕 New elements appeared:`, actionsAdded);
+        if (state.anomalies && state.anomalies.length > 0) {
+          for (const anomaly of state.anomalies) {
+            await insertAnomaly({
+              runId: graphRunId,
+              stepIndex: stepIndex - 1,
+              ...anomaly
+            });
+          }
         }
-        if (actionsRemoved.length > 0) {
-          console.log(`🗑️ Elements disappeared:`, actionsRemoved);
-        }
-        if (modalDismissed) {
-          console.log(`✅ Modal dismissed - UI unlocked`);
-          consecutiveFailures = 0; // Reset failures on modal dismissal
-        }
-
-        const newStateId = state.ui_state?.state_id ?? null;
-
-        // Better progress detection
-        const significantChange = actionsAdded.length > 0 || actionsRemoved.length > 0 || modalDismissed;
-        const noProgress = lastStateId !== null && newStateId === lastStateId && !significantChange;
-
-        lastStateId = newStateId;
-
-        const failed = observation.skipped || noProgress;
-
-        if (failed && !modalDismissed) consecutiveFailures++;
-        else consecutiveFailures = 0;
-
-        const agentStep: AgentStep = {
-          step,
-          action: state.next_action,
-          observation: {
-            ...observation,
-            skipped: failed
-          },
-          anomalies: state.anomalies ?? []
-        };
-
-        state.steps.push(agentStep);
-      } catch (error) {
-        console.error(`❌ Step ${step + 1} failed:`, error instanceof Error ? error.message : String(error));
+      } catch (loopError) {
+        console.error("❌ Step loop error:", loopError);
         consecutiveFailures++;
-        if (consecutiveFailures >= 5) {
-          console.log("[Loop] Too many step failures. Stopping.");
-          break;
-        }
       }
     }
 
-    // ---------------------------------
-    // Save run to file
-    // ---------------------------------
-    try {
-      fs.writeFileSync(
-        `runs/${state.run_id}.json`,
-        JSON.stringify(state, null, 2)
-      );
-    } catch (error) {
-      console.error("❌ Failed to save run file:", error instanceof Error ? error.message : String(error));
-    }
+    await updateTestRun(graphRunId, {
+      status: "completed",
+      completedAt: new Date().toISOString(),
+      totalSteps: stepIndex
+    });
 
-    // ---------------------------------
-    // Persist knowledge to KB
-    // ---------------------------------
-    await persistRunKnowledge(state);
-
-    console.log("✅ Run complete:", state.run_id);
   } catch (error) {
-    console.error("❌ Main execution failed:", error instanceof Error ? error.message : String(error));
-    process.exit(1);
+    console.error("❌ Main execution failed:", error);
+  } finally {
+    await closeBrowser();
+    console.log(`\n✅ Run completed. Run ID: ${graphRunId}`);
   }
 }
 
-main().catch(err => {
-  console.error("❌ Runtime failed:");
-  console.dir(err, { depth: null });
-  process.exit(1);
-});
-
+main();

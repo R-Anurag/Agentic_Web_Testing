@@ -10,6 +10,7 @@ node_modules/
 */node_modules/
 package-lock.json
 */package-lock.json
+*node_modules
 
 # Build outputs
 dist/
@@ -25,6 +26,12 @@ screenshots/
 reports/
 */reports/
 qdrant_data/
+quant-data/
+*/quant-data/
+data/
+*/data/
+training-data/
+*/training-data/
 
 # IDE files
 .vscode/
