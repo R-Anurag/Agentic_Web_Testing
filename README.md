@@ -1,4 +1,4 @@
-# DAD Agent
+# TestPilot AI
 
 AI-powered autonomous testing agent that intelligently explores and tests web applications using LangGraph decision-making and browser automation.
 
